@@ -196,3 +196,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Automatically fill the hidden field with the current date and time
+document.addEventListener("DOMContentLoaded", () => {
+    const visitField = document.getElementById("visitTime");
+    const now = new Date();
+    visitField.value = `Visitor visited on: ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`;
+});
+
+const nameElement = document.querySelector('.typewriter');
+const nameText = "Peter Kimani";
+let index = 0;
+let isDeleting = false;
+let speed = 150; // typing speed
+
+function typeLoop() {
+    if (!isDeleting) {
+        // add next character
+        nameElement.innerHTML = nameText.substring(0, index + 1);
+        index++;
+
+        if (index === nameText.length) {
+            // pause at the end
+            isDeleting = true;
+            speed = 1000; // 1s pause before deleting
+        } else {
+            speed = 150; // normal typing speed
+        }
+    } else {
+        // delete characters
+        nameElement.innerHTML = nameText.substring(0, index - 1);
+        index--;
+
+        if (index === 0) {
+            isDeleting = false;
+            speed = 500; // pause before typing again
+        } else {
+            speed = 75; // faster deleting speed
+        }
+    }
+
+    setTimeout(typeLoop, speed);
+}
+
+typeLoop();
